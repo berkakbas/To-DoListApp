@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.to_dolistapp.R
 import com.example.to_dolistapp.databinding.FragmentToDoListBinding
 import com.example.to_dolistapp.ui.adapter.ToDoAdapter
@@ -26,14 +25,18 @@ class ToDoListFragment : Fragment() {
         recyclerView.adapter = ToDoAdapter(requireContext(), listOf())
         recyclerView.setHasFixedSize(true)
 
+        binding.addButton.setOnClickListener {
+            navigateToAddFragment()
+        }
+
         return binding.root
     }
 
-    fun navigateToAddFragment () {
+    private fun navigateToAddFragment() {
         findNavController().navigate(R.id.action_toDoListFragment_to_addToDoFragment)
     }
 
-    fun navigateToDetailsFragment() {
+    private fun navigateToDetailsFragment() {
         findNavController().navigate(R.id.action_toDoListFragment_to_toDoDetailFragment)
     }
 
