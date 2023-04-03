@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_dolistapp.R
 import com.example.to_dolistapp.data.ToDoEntity
 
 class ToDoAdapter(private val context: Context, private val dataset: List<ToDoEntity>) : RecyclerView.Adapter<ToDoAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.todo_text)
     }
 
@@ -23,6 +25,11 @@ class ToDoAdapter(private val context: Context, private val dataset: List<ToDoEn
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
         holder.textView.text = item.note
+
+        val bundle = bundleOf("todo" to item)
+        holder.view.setOnClickListener {
+            holder.view.findNavController().navigate(R.id.action_toDoListFragment_to_toDoDetailFragment, bundle)
+        }
     }
 
     override fun getItemCount() = dataset.size

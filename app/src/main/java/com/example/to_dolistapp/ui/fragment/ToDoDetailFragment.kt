@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.to_dolistapp.data.ToDoEntity
 import com.example.to_dolistapp.databinding.FragmentToDoDetailBinding
 
 class ToDoDetailFragment : Fragment() {
@@ -12,6 +13,9 @@ class ToDoDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentToDoDetailBinding.inflate(inflater, container, false)
+
+        var item = arguments?.getSerializable("todo") as ToDoEntity?
+        binding.noteText.text = item?.note
 
         return binding.root
     }
