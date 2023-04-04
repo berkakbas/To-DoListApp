@@ -24,6 +24,7 @@ class DatabaseModule {
             appContext,
             TodoDatabase::class.java,
             "todo_database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 }

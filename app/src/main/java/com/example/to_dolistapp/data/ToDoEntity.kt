@@ -7,7 +7,8 @@ import java.io.Serializable
 
 @Entity(tableName = "todos")
 data class ToDoEntity(
-    @PrimaryKey val note: String,
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo val note: String,
     @ColumnInfo val priority: Primacy
 ): Serializable
 

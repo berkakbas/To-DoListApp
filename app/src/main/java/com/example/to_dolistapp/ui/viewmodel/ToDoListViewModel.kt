@@ -45,16 +45,6 @@ constructor(private val repository: TodoRepository) : ViewModel() {
         }
     }
 
-    fun updateTodo(todo: ToDoEntity) {
-        viewModelScope.launch {
-            try {
-                repository.updateTodo(todo)
-            } catch (e: Exception) {
-                _errorMessage.value = "Error: ${e.message} while updating"
-            }
-        }
-    }
-
     fun deleteTodo(todo: ToDoEntity) {
         viewModelScope.launch {
             try {
