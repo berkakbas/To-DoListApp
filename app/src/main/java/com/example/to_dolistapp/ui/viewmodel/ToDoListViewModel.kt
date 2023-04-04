@@ -20,6 +20,10 @@ constructor(private val repository: TodoRepository) : ViewModel() {
     private val _errorMessage = MutableStateFlow<String?>("")
     val errorMessage = _errorMessage.asStateFlow()
 
+    init {
+        getTodos()
+    }
+
     fun getTodos() {
         viewModelScope.launch {
             try {
@@ -34,6 +38,7 @@ constructor(private val repository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 repository.insertTodo(todo)
+                getTodos()
             } catch (e: Exception) {
                 _errorMessage.value = "Error: ${e.message} while inserting"
             }
