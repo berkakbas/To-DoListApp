@@ -22,17 +22,12 @@ class AddToDoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAddToDoBinding.inflate(inflater, container, false)
-
-        binding.addTodoButton.setOnClickListener {
-            addTodo(binding.todoEditText.text.toString())
-        }
-
-        configureRadioGroup()
+        binding.addFragment = this
 
         return binding.root
     }
 
-    private fun addTodo(note: String) {
+    fun addTodo(note: String) {
         val todo = ToDoEntity(id= 0, note = note, priority = getSelectedPriority())
         todoListViewModel.insertTodo(todo)
         navigateToListFragment()
@@ -40,10 +35,6 @@ class AddToDoFragment : Fragment() {
 
     private fun navigateToListFragment() {
         findNavController().navigate(R.id.action_addToDoFragment_to_toDoListFragment)
-    }
-
-    private fun configureRadioGroup() {
-        binding.radioButtonHigh.isChecked = true
     }
 
     private fun getSelectedPriority(): Primacy {

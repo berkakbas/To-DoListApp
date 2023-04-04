@@ -22,33 +22,25 @@ class ToDoListFragment : Fragment() {
     private val todoListViewModel by viewModels<ToDoListViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentToDoListBinding.inflate(inflater, container, false)
+        binding.listFragment = this
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = binding.recyclerView
-        recyclerView.setHasFixedSize(true)
-
-        binding.addButton.setOnClickListener {
-            navigateToAddFragment()
-        }
+        binding.recyclerView.setHasFixedSize(true)
 
         lifecycleScope.launch {
             todoListViewModel.todos.collect {
-                recyclerView.adapter = ToDoAdapter(requireContext(), todoListViewModel.todos.value)
+                binding.todoAdapter = ToDoAdapter(requireContext(), todoListViewModel.todos.value)
             }
         }
 
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun navigateToAddFragment() {
+    fun navigateToAddFragment() {
         findNavController().navigate(R.id.action_toDoListFragment_to_addToDoFragment)
-    }
-
-    private fun navigateToDetailsFragment() {
-        findNavController().navigate(R.id.action_toDoListFragment_to_toDoDetailFragment)
     }
 
 }
