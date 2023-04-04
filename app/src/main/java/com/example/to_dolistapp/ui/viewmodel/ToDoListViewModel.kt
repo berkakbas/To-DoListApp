@@ -49,6 +49,7 @@ constructor(private val repository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 repository.deleteTodo(todo)
+                getTodos()
             } catch (e: Exception) {
                 _errorMessage.value = "Error: ${e.message} while deleting"
             }
