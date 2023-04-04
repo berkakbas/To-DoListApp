@@ -26,17 +26,33 @@ class AddToDoFragment : Fragment() {
         binding.addTodoButton.setOnClickListener {
             addTodo(binding.todoEditText.text.toString())
         }
+
+        configureRadioGroup()
+
         return binding.root
     }
 
     private fun addTodo(note: String) {
-        val todo = ToDoEntity(id= 0, note = note, priority = Primacy.HIGH)
+        val todo = ToDoEntity(id= 0, note = note, priority = getSelectedPriority())
         todoListViewModel.insertTodo(todo)
         navigateToListFragment()
     }
 
     private fun navigateToListFragment() {
         findNavController().navigate(R.id.action_addToDoFragment_to_toDoListFragment)
+    }
+
+    private fun configureRadioGroup() {
+        binding.radioButtonHigh.isChecked = true
+    }
+
+    private fun getSelectedPriority(): Primacy {
+        return when {
+            binding.radioButtonHigh.isChecked -> Primacy.HIGH
+            binding.radioButtonMedium.isChecked -> Primacy.MEDIUM
+            binding.radioButtonLow.isChecked -> Primacy.LOW
+            else -> Primacy.LOW
+        }
     }
 
 }
