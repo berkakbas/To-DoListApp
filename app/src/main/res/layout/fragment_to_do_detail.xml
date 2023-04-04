@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragment.ToDoDetailFragment">
+
+    <data>
+        <import type="com.example.to_dolistapp.data.Primacy"/>
+        <variable
+            name="todoInstance"
+            type="com.example.to_dolistapp.data.ToDoEntity" />
+
+        <variable
+            name="detailFragment"
+            type="com.example.to_dolistapp.ui.fragment.ToDoDetailFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="20dp"
+            android:textColorHint="@color/orange"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/update_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/bg_yellow"
+                android:gravity="top|start"
+                android:hint="@string/work_todo"
+                android:maxLines="50"
+                android:text="@{todoInstance.note}"
+                android:textColor="@color/black"
+                android:textColorLink="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/priority_radio_group"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout">
+
+            <RadioButton
+                android:id="@+id/radio_button_high"
+                android:checked="@{todoInstance.priority == Primacy.HIGH}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/red"
+                android:text="@string/high"
+                android:textColor="@color/red" />
+
+            <RadioButton
+                android:id="@+id/radio_button_medium"
+                android:checked="@{todoInstance.priority == Primacy.MEDIUM}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/orange"
+                android:text="@string/medium"
+                android:textColor="@color/orange" />
+
+            <RadioButton
+                android:id="@+id/radio_button_low"
+                android:checked="@{todoInstance.priority == Primacy.LOW}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/dark_green"
+                android:text="@string/low"
+                android:textColor="@color/dark_green" />
+
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/update_todo_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/add_button_bg"
+            android:onClick="@{() -> detailFragment.updateTodo(updateEditText.getText().toString())}"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priority_radio_group" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
