@@ -14,9 +14,6 @@ import javax.inject.Inject
 class ToDoDetailViewModel
 @Inject
 constructor(private val repository: TodoRepository) : ViewModel() {
-    private lateinit var _todo: MutableStateFlow<ToDoEntity>
-    val todo = _todo.asStateFlow()
-
     private val _errorMessage = MutableStateFlow<String?>("")
     val errorMessage = _errorMessage.asStateFlow()
 

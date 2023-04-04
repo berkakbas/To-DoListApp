@@ -35,7 +35,7 @@ class ToDoDetailFragment : Fragment() {
     }
 
     private fun updateTodo(note: String) {
-        val updatedTodo = ToDoEntity(note = note, priority = todo.priority)
+        val updatedTodo = ToDoEntity(id= todo.id, note = note, priority = todo.priority)
         todoDetailViewModel.updateTodo(updatedTodo)
         navigateToListFragment()
     }

@@ -30,7 +30,7 @@ class AddToDoFragment : Fragment() {
     }
 
     private fun addTodo(note: String) {
-        val todo = ToDoEntity(note = note, priority = Primacy.HIGH)
+        val todo = ToDoEntity(id= 0, note = note, priority = Primacy.HIGH)
         todoListViewModel.insertTodo(todo)
         navigateToListFragment()
     }
