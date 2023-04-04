@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.to_dolistapp.R
+import com.example.to_dolistapp.data.ToDoEntity
 import com.example.to_dolistapp.databinding.FragmentToDoListBinding
 import com.example.to_dolistapp.ui.adapter.ToDoAdapter
 import com.example.to_dolistapp.ui.viewmodel.ToDoListViewModel
@@ -32,7 +33,8 @@ class ToDoListFragment : Fragment() {
 
         lifecycleScope.launch {
             todoListViewModel.todos.collect {
-                binding.todoAdapter = ToDoAdapter(requireContext(), todoListViewModel.todos.value)
+                binding.todoAdapter = ToDoAdapter(todoListViewModel.todos.value, todoListViewModel)
+                checkEmptyList(it)
             }
         }
 
@@ -41,6 +43,14 @@ class ToDoListFragment : Fragment() {
 
     fun navigateToAddFragment() {
         findNavController().navigate(R.id.action_toDoListFragment_to_addToDoFragment)
+    }
+
+    private fun checkEmptyList(list: List<ToDoEntity>) {
+        if (list.isEmpty()) {
+            binding.emptyListTextView.visibility = View.VISIBLE
+        } else {
+            binding.emptyListTextView.visibility = View.GONE
+        }
     }
 
 }

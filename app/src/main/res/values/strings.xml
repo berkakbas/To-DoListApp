@@ -6,6 +6,7 @@
     <string name="todo_list"><b>To-do List</b></string>
     <string name="work_todo">Work to do</string>
     <string name="update">Update</string>
+    <string name="empty_list_text"><b>Your To-do List is Empty for now.</b></string>
 
     <string name="high">High</string>
     <string name="medium">Medium</string>
