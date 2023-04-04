@@ -13,4 +13,6 @@
     <color name="orange">#FFFF8400</color>
     <color name="transparent">#00000000</color>
 
+    <color name="dark_green">#006400</color>
+
 </resources>

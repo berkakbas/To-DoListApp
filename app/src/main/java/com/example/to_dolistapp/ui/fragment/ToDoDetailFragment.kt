@@ -1,6 +1,5 @@
 package com.example.to_dolistapp.ui.fragment
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,17 +30,34 @@ class ToDoDetailFragment : Fragment() {
             updateTodo(binding.updateEditText.text.toString())
         }
 
+        configureRadioGroup()
+
         return binding.root
     }
 
     private fun updateTodo(note: String) {
-        val updatedTodo = ToDoEntity(id= todo.id, note = note, priority = todo.priority)
+        val updatedTodo = ToDoEntity(id = todo.id, note = note, priority = getSelectedPriority())
         todoDetailViewModel.updateTodo(updatedTodo)
         navigateToListFragment()
     }
 
     private fun navigateToListFragment() {
         findNavController().navigate(R.id.action_toDoDetailFragment_to_toDoListFragment)
+    }
+
+    private fun configureRadioGroup() {
+        binding.radioButtonHigh.isChecked = (todo.priority == Primacy.HIGH)
+        binding.radioButtonMedium.isChecked = (todo.priority == Primacy.MEDIUM)
+        binding.radioButtonLow.isChecked = (todo.priority == Primacy.LOW)
+    }
+
+    private fun getSelectedPriority(): Primacy {
+        return when {
+            binding.radioButtonHigh.isChecked -> Primacy.HIGH
+            binding.radioButtonMedium.isChecked -> Primacy.MEDIUM
+            binding.radioButtonLow.isChecked -> Primacy.LOW
+            else -> Primacy.LOW
+        }
     }
 
 }
