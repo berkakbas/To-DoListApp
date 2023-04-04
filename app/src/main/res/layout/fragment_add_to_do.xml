@@ -1,94 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.AddToDoFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/add_note_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/add_todo_title"
-        android:textColor="@color/orange"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="addFragment"
+            type="com.example.to_dolistapp.ui.fragment.AddToDoFragment" />
+    </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/todo_card_view"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        app:cardBackgroundColor="@color/bg_yellow"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_note_text_view">
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.AddToDoFragment">
 
-        <EditText
-            android:id="@+id/todo_edit_text"
+        <TextView
+            android:id="@+id/add_note_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/add_todo_title"
+            android:textColor="@color/orange"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/todo_card_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:background="@color/transparent"
-            android:gravity="top|start"
+            android:layout_height="200dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            app:cardBackgroundColor="@color/bg_yellow"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_note_text_view">
+
+            <EditText
+                android:id="@+id/todo_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:background="@color/transparent"
+                android:gravity="top|start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_note_text_view" />
+
+        </androidx.cardview.widget.CardView>
+
+        <RadioGroup
+            android:id="@+id/priority_radio_group"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todo_card_view">
+
+            <RadioButton
+                android:id="@+id/radio_button_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/red"
+                android:checked="true"
+                android:text="@string/high"
+                android:textColor="@color/red" />
+
+            <RadioButton
+                android:id="@+id/radio_button_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/orange"
+                android:text="@string/medium"
+                android:textColor="@color/orange" />
+
+            <RadioButton
+                android:id="@+id/radio_button_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/dark_green"
+                android:text="@string/low"
+                android:textColor="@color/dark_green" />
+
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_todo_button"
+            android:onClick="@{() -> addFragment.addTodo(todoEditText.getText().toString())}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/add_button_bg"
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_note_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/priority_radio_group" />
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RadioGroup
-        android:id="@+id/priority_radio_group"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todo_card_view">
-
-        <RadioButton
-            android:id="@+id/radio_button_high"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/red"
-            android:text="@string/high"
-            android:textColor="@color/red" />
-
-        <RadioButton
-            android:id="@+id/radio_button_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/orange"
-            android:text="@string/medium"
-            android:textColor="@color/orange" />
-
-        <RadioButton
-            android:id="@+id/radio_button_low"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/dark_green"
-            android:text="@string/low"
-            android:textColor="@color/dark_green" />
-
-    </RadioGroup>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/add_todo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/add_button_bg"
-        android:text="@string/add"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priority_radio_group" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -24,18 +24,13 @@ class ToDoDetailFragment : Fragment() {
         binding = FragmentToDoDetailBinding.inflate(inflater, container, false)
 
         todo = arguments?.getSerializable("todo") as ToDoEntity
-        binding.updateEditText.setText(todo.note)
-
-        binding.updateTodoButton.setOnClickListener {
-            updateTodo(binding.updateEditText.text.toString())
-        }
-
-        configureRadioGroup()
+        binding.todoInstance = todo
+        binding.detailFragment = this
 
         return binding.root
     }
 
-    private fun updateTodo(note: String) {
+    fun updateTodo(note: String) {
         val updatedTodo = ToDoEntity(id = todo.id, note = note, priority = getSelectedPriority())
         todoDetailViewModel.updateTodo(updatedTodo)
         navigateToListFragment()
@@ -43,12 +38,6 @@ class ToDoDetailFragment : Fragment() {
 
     private fun navigateToListFragment() {
         findNavController().navigate(R.id.action_toDoDetailFragment_to_toDoListFragment)
-    }
-
-    private fun configureRadioGroup() {
-        binding.radioButtonHigh.isChecked = (todo.priority == Primacy.HIGH)
-        binding.radioButtonMedium.isChecked = (todo.priority == Primacy.MEDIUM)
-        binding.radioButtonLow.isChecked = (todo.priority == Primacy.LOW)
     }
 
     private fun getSelectedPriority(): Primacy {
