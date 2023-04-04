@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.to_dolistapp.R
 import com.example.to_dolistapp.databinding.FragmentToDoListBinding
 import com.example.to_dolistapp.ui.adapter.ToDoAdapter
 import com.example.to_dolistapp.ui.viewmodel.ToDoListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ToDoListFragment : Fragment() {
@@ -21,15 +23,24 @@ class ToDoListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentToDoListBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = binding.recyclerView
-        recyclerView.adapter = ToDoAdapter(requireContext(), listOf())
         recyclerView.setHasFixedSize(true)
 
         binding.addButton.setOnClickListener {
             navigateToAddFragment()
         }
 
-        return binding.root
+        lifecycleScope.launch {
+            todoListViewModel.todos.collect {
+                recyclerView.adapter = ToDoAdapter(requireContext(), todoListViewModel.todos.value)
+            }
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun navigateToAddFragment() {
